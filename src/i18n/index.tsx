@@ -34,12 +34,14 @@ const detectLang = (): Lang => {
   } catch {
     /* noop */
   }
+  // Recorrer los idiomas del dispositivo (preferidos del usuario) y tomar
+  // el primero que soportemos. Si no hay match, caer a inglés.
   const candidates = [...(navigator.languages ?? []), navigator.language ?? ""];
   for (const c of candidates) {
     const short = c.slice(0, 2).toLowerCase();
     if (isLang(short)) return short;
   }
-  return "es";
+  return "en";
 };
 
 type Ctx = {
