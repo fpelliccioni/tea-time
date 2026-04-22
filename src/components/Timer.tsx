@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Tea } from "../lib/teas";
 import { playRelaxingChime, primeAudio } from "../lib/sound";
 import { bumpUsage } from "../lib/storage";
+import { useI18n } from "../i18n";
 
 type Props = {
   tea: Tea;
@@ -17,9 +18,11 @@ const fmt = (s: number) => {
 type Phase = "setup" | "running" | "done";
 
 export function Timer({ tea, onBack }: Props) {
+  const { t, teaName, teaHint } = useI18n();
   const [total, setTotal] = useState(tea.seconds);
   const [remaining, setRemaining] = useState(tea.seconds);
   const [phase, setPhase] = useState<Phase>("setup");
+  const [doneIdx, setDoneIdx] = useState(0);
   const endAt = useRef<number | null>(null);
   const raf = useRef<number | null>(null);
 
@@ -34,12 +37,17 @@ export function Timer({ tea, onBack }: Props) {
 
     const tick = () => {
       const now = Date.now();
-      const left = Math.max(0, Math.round(((endAt.current ?? now) - now) / 1000));
+      const left = Math.max(
+        0,
+        Math.round(((endAt.current ?? now) - now) / 1000),
+      );
       setRemaining(left);
       if (left <= 0) {
+        setDoneIdx(Math.floor(Math.random() * t.done.length));
         setPhase("done");
         try {
-          if ("vibrate" in navigator) navigator.vibrate([200, 120, 200, 120, 400]);
+          if ("vibrate" in navigator)
+            navigator.vibrate([200, 120, 200, 120, 400]);
         } catch {
           /* noop */
         }
@@ -53,7 +61,7 @@ export function Timer({ tea, onBack }: Props) {
     return () => {
       if (raf.current) window.clearTimeout(raf.current);
     };
-  }, [phase, tea.id]);
+  }, [phase, tea.id, t.done.length]);
 
   const adjust = (deltaSec: number) => {
     if (phase !== "setup") return;
@@ -77,6 +85,7 @@ export function Timer({ tea, onBack }: Props) {
 
   const progress = phase === "done" ? 1 : 1 - remaining / total;
   const displaySeconds = phase === "setup" ? total : remaining;
+  const doneMsg = t.done[doneIdx % t.done.length];
 
   return (
     <div className="flex flex-col min-h-full px-6 pt-3 pb-8">
@@ -85,20 +94,24 @@ export function Timer({ tea, onBack }: Props) {
           onClick={onBack}
           className="h-10 px-3 rounded-full text-tea-200 hover:bg-tea-800/60 text-sm"
         >
-          ← Volver
+          ← {t.back}
         </button>
-        <div className="text-right">
+        <div className="text-end">
           <div className="text-xs uppercase tracking-widest text-tea-400">
             {tea.tempC}°C
           </div>
-          <div className="font-display text-sm text-tea-100">{tea.hint}</div>
+          <div className="font-display text-sm text-tea-100">
+            {teaHint(tea.id)}
+          </div>
         </div>
       </header>
 
       <div className="flex-1 flex flex-col items-center justify-center gap-6">
         <div className="text-center">
           <div className="text-5xl mb-2">{tea.emoji}</div>
-          <div className="font-display text-3xl text-tea-50">{tea.name}</div>
+          <div className="font-display text-3xl text-tea-50">
+            {teaName(tea.id)}
+          </div>
         </div>
 
         <ProgressRing progress={progress} phase={phase}>
@@ -108,10 +121,10 @@ export function Timer({ tea, onBack }: Props) {
             </div>
             <div className="text-xs uppercase tracking-[0.2em] text-tea-400 mt-1">
               {phase === "setup"
-                ? "Listo para infusionar"
+                ? t.readyLabel
                 : phase === "running"
-                  ? "Infusionando..."
-                  : "¡Tu té está listo!"}
+                  ? t.steepingLabel
+                  : t.doneLabel}
             </div>
           </div>
         </ProgressRing>
@@ -119,10 +132,11 @@ export function Timer({ tea, onBack }: Props) {
         {phase === "done" && (
           <div className="fade-up text-center max-w-xs">
             <p className="font-display text-xl text-cream italic">
-              Un momento para vos.
+              {doneMsg.title}
             </p>
-            <p className="text-sm text-tea-300 mt-2">
-              Respirá hondo y disfrutá tu {tea.name.toLowerCase()} 🌿
+            <p className="text-sm text-tea-300 mt-2">{doneMsg.body}</p>
+            <p className="text-xs text-tea-400 mt-3">
+              {t.enjoyPrefix} {teaName(tea.id)} 🌿
             </p>
           </div>
         )}
@@ -141,7 +155,7 @@ export function Timer({ tea, onBack }: Props) {
               onClick={start}
               className="w-full h-16 rounded-3xl bg-tea-400 hover:bg-tea-300 active:scale-[0.98] text-ink font-display text-2xl tracking-wide transition shadow-lg shadow-tea-900/40"
             >
-              ¡TÉ!
+              {t.teaButton}
             </button>
           </div>
         )}
@@ -151,7 +165,7 @@ export function Timer({ tea, onBack }: Props) {
             onClick={reset}
             className="w-full h-14 rounded-3xl border border-tea-700/60 text-tea-100 hover:bg-tea-800/60 transition"
           >
-            Cancelar
+            {t.cancel}
           </button>
         )}
 
@@ -161,13 +175,13 @@ export function Timer({ tea, onBack }: Props) {
               onClick={reset}
               className="flex-1 h-14 rounded-3xl border border-tea-700/60 text-tea-100 hover:bg-tea-800/60 transition"
             >
-              De nuevo
+              {t.again}
             </button>
             <button
               onClick={onBack}
               className="flex-1 h-14 rounded-3xl bg-tea-400 hover:bg-tea-300 text-ink font-display text-lg transition"
             >
-              Otro té
+              {t.anotherTea}
             </button>
           </div>
         )}
