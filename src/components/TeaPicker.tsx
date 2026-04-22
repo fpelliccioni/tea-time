@@ -5,11 +5,13 @@ import { TeaCard } from "./TeaCard";
 import { TeaLogo } from "./TeaLogo";
 import { LanguageSelect } from "./LanguageSelect";
 import { useI18n } from "../i18n";
+import { useFavorites } from "../hooks/useFavorites";
 
 type Props = { onPick: (tea: Tea) => void };
 
 export function TeaPicker({ onPick }: Props) {
   const { t, teaName } = useI18n();
+  const { favs } = useFavorites();
   const [query, setQuery] = useState("");
 
   const ordered = useMemo(() => {
@@ -29,8 +31,18 @@ export function TeaPicker({ onPick }: Props) {
     return ordered.filter((tea) => teaName(tea.id).toLowerCase().includes(q));
   }, [ordered, query, teaName]);
 
-  const popular = filtered.slice(0, 4);
-  const rest = filtered.slice(4);
+  const favSet = useMemo(() => new Set(favs), [favs]);
+  const favoriteTeas = useMemo(
+    () => filtered.filter((tea) => favSet.has(tea.id)),
+    [filtered, favSet],
+  );
+  const nonFavorites = useMemo(
+    () => filtered.filter((tea) => !favSet.has(tea.id)),
+    [filtered, favSet],
+  );
+
+  const popular = !query ? nonFavorites.slice(0, 4) : [];
+  const rest = !query ? nonFavorites.slice(4) : nonFavorites;
 
   return (
     <div className="flex flex-col min-h-full px-5 pt-5 pb-8">
@@ -54,6 +66,20 @@ export function TeaPicker({ onPick }: Props) {
         />
       </div>
 
+      {favoriteTeas.length > 0 && (
+        <section className="mb-5">
+          <h2 className="text-[11px] uppercase tracking-[0.24em] text-rose-300/80 mb-2 px-1 flex items-center gap-1.5">
+            <span aria-hidden>♥</span>
+            {t.favorites}
+          </h2>
+          <div className="grid grid-cols-1 gap-2">
+            {favoriteTeas.map((tea) => (
+              <TeaCard key={tea.id} tea={tea} onPick={onPick} />
+            ))}
+          </div>
+        </section>
+      )}
+
       {!query && popular.length > 0 && (
         <section className="mb-5">
           <h2 className="text-[11px] uppercase tracking-[0.24em] text-tea-400 mb-2 px-1">
@@ -67,21 +93,24 @@ export function TeaPicker({ onPick }: Props) {
         </section>
       )}
 
-      <section>
-        {!query && (
-          <h2 className="text-[11px] uppercase tracking-[0.24em] text-tea-400 mb-2 px-1">
-            {t.allTeas}
-          </h2>
-        )}
-        <div className="grid grid-cols-1 gap-2">
-          {(query ? filtered : rest).map((tea) => (
-            <TeaCard key={tea.id} tea={tea} onPick={onPick} />
-          ))}
-        </div>
-        {filtered.length === 0 && (
-          <p className="text-center text-tea-400 py-10">{t.empty}</p>
-        )}
-      </section>
+      {rest.length > 0 && (
+        <section>
+          {!query && (
+            <h2 className="text-[11px] uppercase tracking-[0.24em] text-tea-400 mb-2 px-1">
+              {t.allTeas}
+            </h2>
+          )}
+          <div className="grid grid-cols-1 gap-2">
+            {rest.map((tea) => (
+              <TeaCard key={tea.id} tea={tea} onPick={onPick} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {filtered.length === 0 && (
+        <p className="text-center text-tea-400 py-10">{t.empty}</p>
+      )}
 
       <footer className="mt-8 text-center text-[11px] text-tea-500">
         {t.footer}
