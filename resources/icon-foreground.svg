@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f1e3"/>
+      <stop offset="100%" stop-color="#e1d9c2"/>
+    </linearGradient>
+    <linearGradient id="brew" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a5bf8a"/>
+      <stop offset="100%" stop-color="#3a5029"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a5bf8a"/>
+      <stop offset="100%" stop-color="#476633"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Todo el contenido vive en la safe zone central (66%) del canvas,
+       para que los launchers de Android no corten nada al aplicar máscaras. -->
+  <g transform="translate(174, 174) scale(0.66)">
+    <!-- Vapor -->
+    <g stroke="#e5ecdc" stroke-width="26" stroke-linecap="round" fill="none" opacity="0.95">
+      <path d="M380 320 Q340 240 400 170"/>
+      <path d="M500 310 Q460 220 520 150"/>
+      <path d="M620 320 Q580 240 640 170"/>
+    </g>
+
+    <!-- Cuerpo de la taza -->
+    <path d="M220 440 H798 L762 748 Q760 828 660 828 H360 Q260 828 258 748 Z"
+          fill="url(#cup)" stroke="#1b2417" stroke-width="18"/>
+
+    <!-- Asa -->
+    <path d="M798 488 Q922 488 922 608 Q922 722 798 742"
+          fill="none" stroke="#1b2417" stroke-width="18" stroke-linecap="round"/>
+
+    <!-- Infusión -->
+    <ellipse cx="509" cy="465" rx="272" ry="52" fill="url(#brew)"/>
+
+    <!-- Hoja -->
+    <path d="M512 420 C566 344 652 318 610 218 C706 258 736 360 656 430 Z"
+          fill="url(#leaf)" stroke="#1b2417" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M612 254 C602 300 590 346 562 400"
+          stroke="#1b2417" stroke-width="7" fill="none"
+          stroke-linecap="round" opacity="0.6"/>
+  </g>
+</svg>
