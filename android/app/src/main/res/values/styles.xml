@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
+    <!-- Tema base. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -15,8 +14,17 @@
         <item name="android:background">@null</item>
     </style>
 
-
+    <!-- Tema de lanzamiento (Theme.SplashScreen de androidx.core.splashscreen).
+         En Android 12+ el sistema usa estas propiedades para pintar el
+         splash: fondo sólido + ícono animado. Luego transiciona a
+         AppTheme.NoActionBar. Encima, el plugin @capacitor/splash-screen
+         agrega su overlay con el PNG completo por launchShowDuration. -->
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
-        <item name="android:background">@drawable/splash</item>
+        <item name="windowSplashScreenBackground">@color/splash_bg</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimationDuration">400</item>
+        <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
+        <!-- Fallback para Android < 12: background drawable completo. -->
+        <item name="android:windowBackground" tools:targetApi="s">@drawable/splash</item>
     </style>
 </resources>
