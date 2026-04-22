@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --color-tea-50: #f5f7f2;
+  --color-tea-100: #e5ecdc;
+  --color-tea-200: #cbd9b8;
+  --color-tea-300: #a5bf8a;
+  --color-tea-400: #7fa263;
+  --color-tea-500: #5f8544;
+  --color-tea-600: #476633;
+  --color-tea-700: #3a5029;
+  --color-tea-800: #2f4022;
+  --color-tea-900: #21301a;
+  --color-cream: #f7f1e3;
+  --color-ink: #1b1b1d;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #10120f;
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-tea-50);
+  overscroll-behavior-y: none;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+@keyframes steam-rise {
+  0% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -60px) scale(1.6);
+    opacity: 0;
+  }
+}
+
+.steam {
+  animation: steam-rise 2.8s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 420ms ease-out both;
+}

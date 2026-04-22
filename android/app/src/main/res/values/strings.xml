@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tea Time</string>
+    <string name="title_activity_main">Tea Time</string>
+    <string name="package_name">com.fpelliccioni.teatime</string>
+    <string name="custom_url_scheme">com.fpelliccioni.teatime</string>
+</resources>

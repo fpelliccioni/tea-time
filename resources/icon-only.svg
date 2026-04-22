@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2f4022"/>
+      <stop offset="100%" stop-color="#10120f"/>
+    </linearGradient>
+    <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f1e3"/>
+      <stop offset="100%" stop-color="#e1d9c2"/>
+    </linearGradient>
+    <linearGradient id="brew" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a5bf8a"/>
+      <stop offset="100%" stop-color="#3a5029"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a5bf8a"/>
+      <stop offset="100%" stop-color="#476633"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <circle cx="512" cy="512" r="380" fill="#1b2417" opacity="0.6"/>
+
+  <!-- Steam -->
+  <g stroke="#cbd9b8" stroke-width="22" stroke-linecap="round" fill="none" opacity="0.9">
+    <path d="M380 300 Q350 230 400 170"/>
+    <path d="M500 290 Q470 210 520 150"/>
+    <path d="M620 300 Q590 230 640 170"/>
+  </g>
+
+  <!-- Cup body -->
+  <path d="M230 430 H794 L760 740 Q758 820 660 820 H364 Q266 820 264 740 Z"
+    fill="url(#cup)" stroke="#2f4022" stroke-width="14"/>
+
+  <!-- Handle -->
+  <path d="M794 480 Q910 480 910 600 Q910 710 794 730"
+    fill="none" stroke="#2f4022" stroke-width="14" stroke-linecap="round"/>
+
+  <!-- Brew surface -->
+  <ellipse cx="512" cy="455" rx="260" ry="48" fill="url(#brew)"/>
+
+  <!-- Leaf -->
+  <g transform="translate(0,0)">
+    <path d="M512 410 C560 340 640 310 600 220 C690 260 720 360 640 420 Z"
+      fill="url(#leaf)" stroke="#2f4022" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M612 252 C600 290 588 340 560 390"
+      stroke="#2f4022" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.7"/>
+  </g>
+
+  <!-- Saucer line -->
+  <path d="M200 860 C360 930 664 930 824 860"
+    stroke="#cbd9b8" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.45"/>
+</svg>
