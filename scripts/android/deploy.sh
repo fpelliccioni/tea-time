@@ -45,7 +45,7 @@ ANDROID_SERIAL="$SERIAL" ./gradlew installDebug
 # Lanzar la app
 APP_ID=$(grep -oE 'appId:\s*"[^"]+"' "$ROOT/capacitor.config.ts" | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
 if [ -z "$APP_ID" ]; then
-  APP_ID="com.fpelliccioni.teatime"
+  APP_ID="com.yerbalabs.teatime"
 fi
 echo "[deploy] Lanzando $APP_ID..."
 "${ADB[@]}" shell am start -n "$APP_ID/.MainActivity" >/dev/null

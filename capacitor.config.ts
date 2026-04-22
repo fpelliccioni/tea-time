@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "com.fpelliccioni.teatime",
+  appId: "com.yerbalabs.teatime",
   appName: "Tea Time",
   webDir: "dist",
   backgroundColor: "#10120fff",

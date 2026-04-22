@@ -2,7 +2,12 @@
 # Uninstall the app from a connected Android device.
 set -euo pipefail
 
-APP_ID="com.fpelliccioni.teatime"
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+APP_ID=$(grep -oE 'appId:\s*"[^"]+"' "$ROOT/capacitor.config.ts" | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
+if [ -z "$APP_ID" ]; then
+  APP_ID="com.yerbalabs.teatime"
+fi
 
 mapfile -t DEVICES < <(adb devices | awk 'NR>1 && $2=="device"{print $1}')
 if [ ${#DEVICES[@]} -eq 0 ]; then

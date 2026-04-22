@@ -1,4 +1,4 @@
-package com.fpelliccioni.teatime;
+package com.yerbalabs.teatime;
 
 import com.getcapacitor.BridgeActivity;
 
