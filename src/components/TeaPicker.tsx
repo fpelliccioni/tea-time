@@ -45,7 +45,12 @@ export function TeaPicker({ onPick }: Props) {
   const rest = !query ? nonFavorites.slice(4) : nonFavorites;
 
   return (
-    <div className="flex flex-col min-h-full px-5 pt-5 pb-8">
+    <div
+      className="flex flex-col min-h-full px-5 pt-5"
+      style={{
+        paddingBottom: "calc(2rem + env(safe-area-inset-bottom))",
+      }}
+    >
       <header className="flex items-start gap-3 mb-5 px-1">
         <TeaLogo size={44} />
         <div className="flex-1 min-w-0">
@@ -112,7 +117,7 @@ export function TeaPicker({ onPick }: Props) {
         <p className="text-center text-tea-400 py-10">{t.empty}</p>
       )}
 
-      <footer className="mt-8 text-center text-[11px] text-tea-500">
+      <footer className="mt-10 pt-6 border-t border-tea-700/30 text-center text-xs text-tea-300/90 px-4">
         {t.footer}
       </footer>
     </div>

@@ -14,11 +14,11 @@ const config: CapacitorConfig = {
   },
   plugins: {
     SplashScreen: {
-      // El splash se muestra durante el arranque nativo y lo ocultamos nosotros
-      // desde JS apenas el primer render de React quedó listo, para que la
-      // transición sea suave.
-      launchShowDuration: 2000,
-      launchAutoHide: false,
+      // Android 12+ cierra su splash nativo en ~500ms. El nuestro se muestra
+      // arriba durante 1800ms con fade, para que sea claramente visible.
+      launchShowDuration: 1800,
+      launchFadeOutDuration: 280,
+      launchAutoHide: true,
       backgroundColor: "#10120f",
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP",
