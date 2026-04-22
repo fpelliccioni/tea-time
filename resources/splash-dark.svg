@@ -1,54 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Splash en modo oscuro: misma composición, colores un pelín más contrastados. -->
 <svg width="2732" height="2732" viewBox="0 0 2732 2732" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <radialGradient id="bg" cx="50%" cy="48%" r="65%">
-      <stop offset="0%" stop-color="#3a5029"/>
-      <stop offset="55%" stop-color="#1b2417"/>
-      <stop offset="100%" stop-color="#10120f"/>
+      <stop offset="0%" stop-color="#21301a"/>
+      <stop offset="60%" stop-color="#10120f"/>
+      <stop offset="100%" stop-color="#050605"/>
     </radialGradient>
     <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f7f1e3"/>
-      <stop offset="100%" stop-color="#d8cfb4"/>
+      <stop offset="100%" stop-color="#c8bf9e"/>
     </linearGradient>
     <linearGradient id="brew" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#a5bf8a"/>
-      <stop offset="100%" stop-color="#3a5029"/>
+      <stop offset="100%" stop-color="#2f4022"/>
     </linearGradient>
     <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#cbd9b8"/>
-      <stop offset="100%" stop-color="#476633"/>
+      <stop offset="100%" stop-color="#3a5029"/>
     </linearGradient>
   </defs>
 
   <rect width="2732" height="2732" fill="url(#bg)"/>
-
-  <!-- Aureola suave detrás del logo -->
   <circle cx="1366" cy="1280" r="640" fill="#7fa263" opacity="0.08"/>
   <circle cx="1366" cy="1280" r="480" fill="#a5bf8a" opacity="0.06"/>
 
-  <!-- Vapor -->
-  <g transform="translate(1002, 820)" stroke="#e5ecdc" stroke-width="28"
-     stroke-linecap="round" fill="none" opacity="0.95">
+  <g transform="translate(1002, 820)" stroke="#cbd9b8" stroke-width="28"
+     stroke-linecap="round" fill="none" opacity="0.85">
     <path d="M160 260 Q110 160 180 60"/>
     <path d="M360 250 Q310 140 380 40"/>
     <path d="M560 260 Q510 160 580 60"/>
   </g>
 
-  <!-- Taza, hoja, infusión — centrado en (1366, 1280), ~750px de ancho -->
   <g transform="translate(989, 1020)">
     <path d="M40 270 H716 L680 612 Q678 712 562 712 H194 Q78 712 76 612 Z"
-          fill="url(#cup)" stroke="#1b2417" stroke-width="16"/>
+          fill="url(#cup)" stroke="#050605" stroke-width="16"/>
     <path d="M716 322 Q852 322 852 448 Q852 572 716 592"
-          fill="none" stroke="#1b2417" stroke-width="16" stroke-linecap="round"/>
+          fill="none" stroke="#050605" stroke-width="16" stroke-linecap="round"/>
     <ellipse cx="378" cy="298" rx="318" ry="58" fill="url(#brew)"/>
     <path d="M378 252 C444 164 552 138 508 22 C616 60 652 178 560 260 Z"
-          fill="url(#leaf)" stroke="#1b2417" stroke-width="10" stroke-linejoin="round"/>
+          fill="url(#leaf)" stroke="#050605" stroke-width="10" stroke-linejoin="round"/>
     <path d="M510 60 C498 112 484 170 452 232"
-          stroke="#1b2417" stroke-width="7" fill="none"
+          stroke="#050605" stroke-width="7" fill="none"
           stroke-linecap="round" opacity="0.55"/>
   </g>
 
-  <!-- Wordmark -->
   <text x="1366" y="1990" text-anchor="middle"
         font-family="Georgia, 'Times New Roman', serif"
         font-size="180" font-style="italic" font-weight="500"
