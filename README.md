@@ -22,13 +22,26 @@ Un timer de té relajante para Android e iOS. Elegí tu té, ajustá el tiempo s
 ## Scripts
 
 ```bash
-npm install            # dependencias
-npm run dev            # servidor de desarrollo web
-npm run build          # build de producción a dist/
-npx cap sync           # copiar dist/ a las plataformas nativas
-npx cap open android   # abrir en Android Studio
-npx cap open ios       # abrir en Xcode (requiere macOS)
+npm install             # dependencias
+npm run dev             # servidor de desarrollo web
+npm run dev:lan         # dev server expuesto a la LAN
+npm run build           # build de producción a dist/
+npx cap sync            # copiar dist/ a las plataformas nativas
+
+# Android (vía ADB)
+npm run android:build      # genera el APK debug
+npm run android:deploy     # build + install + launch en el dispositivo ADB
+npm run android:uninstall  # remueve la app del dispositivo
 ```
+
+### Notas para NixOS
+
+Los scripts de Android (`scripts/android/env.sh`) detectan NixOS automáticamente y:
+
+- Buscan un JDK 21 en `/nix/store` (requerido por AGP 8.13) y setean `JAVA_HOME`.
+- Como el Android SDK de Nix es read-only (`/nix/store/...`), espejan el SDK a `~/Android/sdk` con symlinks para que AGP pueda bajar e instalar build-tools nuevos.
+
+Para usarlo, basta con tener el SDK de Nix instalado y `ANDROID_HOME` apuntando ahí (típico via `programs.android.enable = true` o un shell.nix con `androidenv.composeAndroidPackages`).
 
 ## Regenerar íconos
 
